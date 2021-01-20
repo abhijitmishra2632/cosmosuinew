@@ -14,15 +14,14 @@ export class ProductService {
 
   productUrl:string='http://localhost:8099/products';
 
-  public getAllDeletedProducts() {
-    return this.httpClient.get<Products>(this.productUrl+'/deleted');
-  }
-
   public getProduct(productId){
     return this.httpClient.get<Product>(this.productUrl+`/`+productId);
   }
   public getAllProducts(){
     return this.httpClient.get<Products>(this.productUrl);
+  }
+  public getAllDeletedProducts() {
+    return this.httpClient.get<Products>(this.productUrl+'/deleted');
   }
   public saveProduct(product:Product){
     console.log("Inside add product repo: "+product);
