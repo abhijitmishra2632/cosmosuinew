@@ -1,0 +1,72 @@
+<div>
+    <form (ngSubmit)="onSubmitProduct()">
+      <div class="form-group">
+        <label for="productName" class="col-sm-2 col-form-label">Product Name :</label>
+        <div>
+          <input type="text" class="form-control" name="product.productName" [(ngModel)]="product.productName" id="productName" placeholder="{{product.productName}}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group mb-2">
+          <select class="form-control"  name="product.productCategory" [(ngModel)]="product.productCategory" id="productCategory">
+            <option *ngFor="let sub of categoryList" [value]="sub">{{sub}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control"  name="product.productType" [(ngModel)]="product.productType" id="productType">
+            <option *ngFor="let sub of typeList" [value]="sub">{{sub}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="product.productStore" [(ngModel)]="product.productStore" id="productStore">
+            <option *ngFor="let sub of storeList" [value]="sub">{{sub}}</option>
+          </select>
+        </div>
+      </div>
+      
+        
+          
+          <div class="form-group">
+            <label for="productBrand" class="col-sm-2 col-form-label">Brand :</label>
+            <div>
+              <input type="text" class="form-control" name="product.productBrand" [(ngModel)]="product.productBrand" id="productBrand" placeholder="{{product.productBrand}}">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <select class="form-control" name="product.productUnit" [(ngModel)]="product.productUnit" id="productUnit">
+                <option *ngFor="let sub of unitList" [value]="sub">{{sub}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div>
+                <input type="text" class="form-control" name="product.productAmount" [(ngModel)]="product.productAmount" id="productAmount" placeholder="Product Amount">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <div>
+                <input type="text" class="form-control" name="product.productMRP" [(ngModel)]="product.productMRP" id="productMRP" placeholder="Product MRP">
+              </div>
+            </div>
+            <div class="form-group">
+              <div>
+                <input type="text" class="form-control" name="product.productRealPrice" [(ngModel)]="product.productRealPrice" id="productRealPrice" placeholder="Price I am getting at">
+              </div>
+            </div>
+            <div class="form-group">
+              <div>
+                <input type="text" class="form-control" name="product.productSellingPrice" [(ngModel)]="product.productSellingPrice" id="productSellingPrice" placeholder="Selling Price">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+          </div>
+    </form>      
+</div>

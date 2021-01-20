@@ -1,0 +1,23 @@
+<div *ngIf='!submited'class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+    
+      <!-- Login Form -->
+      <form (ngSubmit)="onLoginUser()">
+        <input type="text" id="mobileNumber" class="fadeIn second" name="user.mobileNumber" placeholder="MobileNumber" [(ngModel)]="user.mobileNumber" >
+        <input type="password" id="password" class="fadeIn third" name="user.password" placeholder="Password" [(ngModel)]="user.password" >
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Forgot Password?</a><br>
+        New To Cosmos: <a class="underlineHover" href="registeruser">Create User Account</a><br>
+        <a class="underlineHover" href="vstore">Browse Product List and Prices..</a>
+      </div>
+  
+    </div>
+  </div>
+  <div *ngIf='submited'>
+    {{msg}}
+  </div>

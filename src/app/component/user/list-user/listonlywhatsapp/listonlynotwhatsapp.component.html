@@ -1,0 +1,16 @@
+<div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Mobile Number</th>
+          <th scope="col">Name</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of users">
+          <td>{{row.mobileNumber}}</td>
+          <td>{{row.userName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

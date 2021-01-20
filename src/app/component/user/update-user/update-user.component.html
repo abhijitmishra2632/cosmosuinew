@@ -1,0 +1,73 @@
+<div *ngIf="searchEnable ;else update">
+    <!-- Search form -->
+    <form class="form-inline waves-light " mdbWavesEffect (ngSubmit)="onSubmit(mobileNumber)">
+        <h3>Update this User  :  </h3>
+        <div class="md-form mt-0">
+            <input class="form-control mr-sm-2" minLength="10" type="text" name="mobileNumber" [(ngModel)]="mobileNumber" placeholder="Enter Mobile No">
+        </div>
+        <button type="submit" class="btn btn-success" >Search</button>
+    </form>  
+</div>
+<ng-template #update>
+  <div *ngIf="userStatus">
+    <form (ngSubmit)="onSubmitUser()">
+        <div class="form-group row">
+            <label for="mobileNumber" class="col-sm-2 col-form-label">Mobile Number :</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="user.mobileNumber" [(ngModel)]="user.mobileNumber" id="mobileNumber" placeholder="{{user.mobileNumber}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="userName" class="col-sm-2 col-form-label">User Name :</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="user.userName" [(ngModel)]="user.userName" id="userName" placeholder="{{user.userName}}">
+            </div>
+          </div>
+        <div class="form-group row">
+          <label for="location" class="col-sm-2 col-form-label">Location :</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="user.location" [(ngModel)]="user.location" id="location" placeholder="{{user.location}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="userSource" class="col-sm-2 col-form-label">Source of Number :</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="user.userSource" [(ngModel)]="user.userSource" id="userSource" placeholder="{{user.userSource}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">Whatsapp Number :</div>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="user.gotWhatsapp" [(ngModel)]="user.gotWhatsapp" id="gotWhatsapp" placeholder="{{user.gotWhatsapp}}">
+              <label class="form-check-label" for="gotWhatsapp">
+                Check if its a Whatsapp number?
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">Usefull?? :</div>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="user.usefull" [(ngModel)]="user.usefull" id="usefull" placeholder="{{user.usefull}}">
+                <label class="form-check-label" for="isUsefull">
+                  Check if usefull?
+                </label>
+              </div>
+            </div>
+          </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </div>
+      </form>
+      <a href="updateuser">Update Other user manually</a><br>
+  </div>
+</ng-template>
+<div *ngIf="!userStatus">
+  User saved Successfully.<br>
+  <a href="updateuser">Update Other user manually</a><br>
+</div>
+

@@ -1,0 +1,12 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+    <h3>Registration Form: </h3>
+      <form (ngSubmit)="onRegisterUser()">
+        <input type="text" id="mobileNumber" class="fadeIn second" name="user.mobileNumber" placeholder="MobileNumber" [(ngModel)]="user.mobileNumber" >
+        <input type="password" id="password" class="fadeIn third" name="user.password" placeholder="Password" [(ngModel)]="user.password" >
+        <input type="text" id="confpassword" class="fadeIn third" name="confirmpassword" placeholder="Confirm password" [(ngModel)]="confpassword">        
+        <input type="submit" class="fadeIn fourth" value="Complete Registration">
+      </form>
+    </div>
+  </div>
+  {{user | json}}

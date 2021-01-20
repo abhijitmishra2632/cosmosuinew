@@ -1,0 +1,38 @@
+<div *ngIf="dateSelected">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Mobile Number</th> 
+          <th scope="col">Got Whatsapp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of users">
+          <td>{{row.userName}}</td>
+          <td>{{row.mobileNumber}}</td>
+          <td>{{row.gotWhatsapp}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!dateSelected">
+    <h3>Select the date for which u want user added, </h3><br>
+    <form class="form-inline"  (ngSubmit)="onSubmitDate()">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">Select Date</button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+       
+  </div>

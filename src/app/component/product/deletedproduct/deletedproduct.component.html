@@ -1,0 +1,24 @@
+<div class="example-button-row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">MRP Price</th>
+          <th scope="col">I am buying at</th>
+          <th scope="col">Selling Price</th>
+          <th scope="col">Undo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of products">
+          <td>{{row.productId}}</td>
+          <td>{{row.productName}}</td>
+          <td>{{row.productMRP}}</td>
+          <td>{{row.productRealPrice}}</td>
+          <td>{{row.productSellingPrice}}</td>
+          <td><button type="click" class="btn btn-primary btn-sm" (click)="onUndo(row)">Undo</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

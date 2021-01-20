@@ -1,0 +1,46 @@
+<div *ngIf="!buyNow">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">MRP</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let row of items">
+            <td>{{row.product.productName}}</td>
+            <td>{{row.product.productMRP}}</td>
+            <td>{{row.product.productSellingPrice}}</td>
+            <td>
+              <button type="button" class="fas fa-minus btn-primary btn-sm" (click)="onDecrease(row)"></button>
+              {{row.quantityOfProduct}}
+              <button type="button" class="fas fa-plus btn-primary btn-sm" (click)="onIncrease(row)"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+<div *ngIf="buyNow">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+    <h3>Deliver To this Location: </h3>
+      <form (ngSubmit)="onRegisterAddress()">
+        <input type="text" id="name" class="fadeIn second" name="user.name" placeholder="Full Name" [(ngModel)]="user.name" >
+        <input type="text" id="address" class="fadeIn third" name="user.address" placeholder="Address" [(ngModel)]="user.address" >
+        <input type="text" id="landmark" class="fadeIn third" name="user.landmark" placeholder="Landmark" [(ngModel)]="user.landmark">        
+        <input type="text" id="pincode" class="fadeIn third" name="user.pincode" placeholder="Pincode" [(ngModel)]="user.pincode">        
+        <input type="text" id="alternateNumber" class="fadeIn third" name="user.alternateNumber" placeholder="Alternate Number" [(ngModel)]="user.alternateNumber">        
+        <input type="submit" class="fadeIn fourth" value="Add Address">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button type="button" class="btn btn-primary btn-sm" (click)="saveCart()">Save Cart</button>
+  <button type="button" class="btn btn-danger btn-sm" (click)="onbuyNow()">Buy Now</button>
+</div>
+
