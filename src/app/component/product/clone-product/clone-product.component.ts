@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/service/product.service';
+import { Product } from 'src/app/model/product';
 
 @Component({
   selector: 'app-clone-product',
@@ -9,7 +10,7 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class CloneProductComponent implements OnInit {
   productId:number;
-  product:any;
+  product = new Product();
   productStatus:boolean=true;
   categoryList=['Packet','Loose'];
   typeList=['Dali','Masala','Atta','Ditergent','Tooth Paste'];

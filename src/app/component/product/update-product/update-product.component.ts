@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class UpdateProductComponent implements OnInit {
   productId:number;
-  product:any;
+  product = new Product();
   productStatus:boolean=true;
   categoryList=['Packet','Loose'];
   typeList=['Dali','Masala','Atta','Ditergent','Tooth Paste'];
