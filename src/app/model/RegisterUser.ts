@@ -1,5 +1,5 @@
 export class RegisterUser {
-    public mobileNumber: number;
+    public username: number;
     public password: string;
     constructor() {  }
 }

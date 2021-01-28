@@ -8,6 +8,14 @@ import { Users } from '../model/User';
   providedIn: 'root'
 })
 export class UsersService {
+  public validateLogin(user: RegisterUser) {
+    console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
+    return this.httpClient.get(`http://localhost:9001/login`, { headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+  }
+
+  createBasicAuthToken(username: Number, password: String) {
+    return 'Basic ' + window.btoa(username + ":" + password)
+  }
   public checkAdmin() {
     let username = localStorage.getItem('username');
     console.log(username);
@@ -21,13 +29,13 @@ export class UsersService {
   public loginUser(user: RegisterUser) {
     console.log(user);
     if(user.password=='admin'){
-      let mobileNumber = user.mobileNumber;
+      let mobileNumber = user.username;
       localStorage.setItem('username',mobileNumber.toString());
       return true;
     }else{
       return false;
     }
-    //return this.httpClient.post(`http://localhost:8099/login/`,user);
+    
   }
   public checkLoggedin(){
     let uname = localStorage.getItem('username');
@@ -39,8 +47,8 @@ export class UsersService {
   }
     
   public saveRegisterUser(user:RegisterUser){
-    console.log("WTG")    
-    return this.httpClient.post<RegisterUser>(`http://localhost:8099/user/register/`,user);
+    console.log("WTG");  
+    return this.httpClient.post<any>(`http://localhost:9001/register`,user );
   }
 
   constructor(private httpClient: HttpClient) { }

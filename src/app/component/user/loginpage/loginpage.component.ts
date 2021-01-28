@@ -19,13 +19,17 @@ export class LoginpageComponent implements OnInit {
   ngOnInit(): void {
   }
   onLoginUser(){
-    this.submited=true;
-    this.loggedIn=this.usersService.loginUser(this.user);
+    this.submited=true; 
+    this.usersService.validateLogin(this.user)
+                      .subscribe(data=>{
+                        console.log("Received data"+data);
+                        this.msg=data.toString();
+                      });
+    //this.loggedIn=this.usersService.loginUser(this.user);
+    console.log("Received data");
     if(this.loggedIn){
         this.routes.navigate(['/home']);
-    }else{
-      this.msg="Invalid credentials";
-    }
-  }
+    }   
 
+  }
 }

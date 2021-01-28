@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/service/users.service';
 import { RegisterUser } from 'src/app/model/RegisterUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registerpage',
@@ -9,18 +10,21 @@ import { RegisterUser } from 'src/app/model/RegisterUser';
 })
 export class RegisterpageComponent implements OnInit {
 
-  confpassword:string;
   user=new RegisterUser();
-  constructor(private usersService:UsersService) { }
+  constructor(private usersService:UsersService, private routes:Router) { }
 
   ngOnInit(): void {
   }
   onRegisterUser(){
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    };
     this.usersService.saveRegisterUser(this.user)
-    .subscribe(data => {
-      console.log("Failure msg"+data);
-      });
-      console.log("Never mind")
+    .subscribe(myObserver);
+      console.log("Never mind");
+      this.routes.navigate(['/loginpage']);
   }
 
 }
