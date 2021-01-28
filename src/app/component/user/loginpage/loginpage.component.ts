@@ -20,16 +20,14 @@ export class LoginpageComponent implements OnInit {
   }
   onLoginUser(){
     this.submited=true; 
-    this.usersService.validateLogin(this.user)
+    this.usersService.getLoginAccessToken(this.user)
                       .subscribe(data=>{
-                        console.log("Received data"+data);
-                        this.msg=data.toString();
-                      });
-    //this.loggedIn=this.usersService.loginUser(this.user);
-    console.log("Received data");
-    if(this.loggedIn){
-        this.routes.navigate(['/home']);
-    }   
+                        this.usersService.saveToken(data);
+                        this.loggedIn=this.usersService.loginUser(this.user);
+                        if(this.loggedIn){
+                            this.routes.navigate(['/home']);
+                        } 
+    });     
 
   }
 }

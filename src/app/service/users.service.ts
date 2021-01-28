@@ -2,15 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
+import { baseUrl } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  public dummyCall() {
+    return this.httpClient.get(`${baseUrl}login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
+
+  }
+  public saveToken(data: string) {
+    var json = JSON.parse(data);
+    localStorage.setItem('token',json.jwtToken);
+  }
   public validateLogin(user: RegisterUser) {
     console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
-    return this.httpClient.get(`http://localhost:9001/login`, { headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+    return this.httpClient.get(`${baseUrl}login`, { headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+  }
+  public getLoginAccessToken(user: RegisterUser) {
+    console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
+    return this.httpClient.post(`${baseUrl}login`, user ,{ headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+  }
+
+  public createJWTHeader(){
+    let token =localStorage.getItem('token');
+    return 'Bearer ' + token;
   }
 
   createBasicAuthToken(username: Number, password: String) {
@@ -27,15 +45,9 @@ export class UsersService {
     }
   }
   public loginUser(user: RegisterUser) {
-    console.log(user);
-    if(user.password=='admin'){
       let mobileNumber = user.username;
       localStorage.setItem('username',mobileNumber.toString());
-      return true;
-    }else{
-      return false;
-    }
-    
+      return true;    
   }
   public checkLoggedin(){
     let uname = localStorage.getItem('username');

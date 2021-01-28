@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService:UsersService) { }
 
   ngOnInit(): void {
+    this.userService.dummyCall()
+    .subscribe(data => {
+      console.log(data);
+      });
   }
 
 }
