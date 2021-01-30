@@ -2,15 +2,32 @@ import { Injectable } from '@angular/core';
 import { UserCart } from '../model/usercart';
 import { HttpClient } from '@angular/common/http';
 import { Item } from '../model/item';
+import { Address } from '../model/address';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  public getAddress(mobileNumber: number) {
+    return this.httpClient.get<Address>(this.addressUrl+"/"+mobileNumber);
+  }
+  addressUrl:string='http://localhost:9009/address/';
+  public registerAddress(user: Address) {
+    this.httpClient.post<Address>(this.addressUrl,user)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
   public onUpdateCartDelete(itemId: number) {
     let quantity=localStorage.getItem(itemId.toString());
     let increaseQuantity=Number(quantity)-1;
-    localStorage.setItem(itemId.toString(),increaseQuantity.toString());
+    if(increaseQuantity<0){
+      increaseQuantity=0;
+      localStorage.setItem(itemId.toString(),increaseQuantity.toString());
+    }else{
+      localStorage.setItem(itemId.toString(),increaseQuantity.toString());
+    }
+    
   }
   public onUpdateUserCart(userCart: UserCart) {
     let updateUrl= this.uri+'update/'+userCart.mobileNumber;
@@ -38,7 +55,6 @@ export class CartService {
       item.product=dbitems[index].product;
       this.cartList.push(item);
     }
-    console.log(this.cartList);
     return this.cartList;
   }
   public onUpdateCart(item: Item) {

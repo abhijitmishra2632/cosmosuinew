@@ -1,46 +1,117 @@
-<div *ngIf="!buyNow">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">MRP</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor = "let row of items">
-            <td>{{row.product.productName}}</td>
-            <td>{{row.product.productMRP}}</td>
-            <td>{{row.product.productSellingPrice}}</td>
-            <td>
-              <button type="button" class="fas fa-minus btn-primary btn-sm" (click)="onDecrease(row)"></button>
-              {{row.quantityOfProduct}}
-              <button type="button" class="fas fa-plus btn-primary btn-sm" (click)="onIncrease(row)"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div *ngIf="!addressPage && !billPage">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">MRP</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of items">
+          <td>{{row.product.productName}}</td>
+          <td>{{row.product.productMRP}}</td>
+          <td>{{row.product.productSellingPrice}}</td>
+          <td>
+            <button type="button" class="fas fa-minus btn-primary btn-sm" (click)="onDecrease(row)"></button>
+            {{row.quantityOfProduct}}
+            <button type="button" class="fas fa-plus btn-primary btn-sm" (click)="onIncrease(row)"></button>
+          </td>
+          <td>{{row.product.productSellingPrice*row.quantityOfProduct}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Grand Total :</td> 
+          <td>{{value}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+</div>
+<div>
+  <button type="button" class="btn btn-primary btn-sm" (click)="saveCart()">Save Cart</button>
+  <button type="button" class="btn btn-danger btn-sm" (click)="onConfirmAddress()">Confirm Address</button>
+  <button type="button" class="btn btn-primary btn-sm" (click)="calculateGrandTotal()">Calculate Grand Total</button>
+</div>
 </div>
 
-<div *ngIf="buyNow">
+<div *ngIf="addressPage">
   <div class="wrapper fadeInDown">
     <div id="formContent">
-    <h3>Deliver To this Location: </h3>
+    <h3>Delivery Location: </h3>
       <form (ngSubmit)="onRegisterAddress()">
         <input type="text" id="name" class="fadeIn second" name="user.name" placeholder="Full Name" [(ngModel)]="user.name" >
         <input type="text" id="address" class="fadeIn third" name="user.address" placeholder="Address" [(ngModel)]="user.address" >
         <input type="text" id="landmark" class="fadeIn third" name="user.landmark" placeholder="Landmark" [(ngModel)]="user.landmark">        
-        <input type="text" id="pincode" class="fadeIn third" name="user.pincode" placeholder="Pincode" [(ngModel)]="user.pincode">        
-        <input type="text" id="alternateNumber" class="fadeIn third" name="user.alternateNumber" placeholder="Alternate Number" [(ngModel)]="user.alternateNumber">        
-        <input type="submit" class="fadeIn fourth" value="Add Address">
+       <input type="submit" class="fadeIn fourth" value="Upadte Address">
       </form>
     </div>
   </div>
+  <div>
+    <button type="button" class="btn btn-primary btn-sm" (click)="onConfirmAddress()">Confirm Address</button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="onBillNow()">Pay Bill</button>
+    </div>
+</div>
+<div *ngIf="billPage">
+  <div>
+    <h3>Total Amount:{{value}}</h3><br>
+    <form (ngSubmit)="onConfirmPayment()">
+      <p>Chose any one option!!</p>
+      <div class="form-group row">
+        <div class="col-sm-2">COD :</div>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="paymentOption.cod" [(ngModel)]="paymentOption.cod" id="cod" placeholder="{{paymentOption.cod}}">
+            <label class="form-check-label" for="cod">
+              Check if Cash on Delivery?
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">UPI :</div>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="paymentOption.upi" [(ngModel)]="paymentOption.upi" id="upi" placeholder="{{paymentOption.upi}}">
+            <label class="form-check-label" for="upi">
+              Check if u have any GooglePay/PhonePay or..
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">Card :</div>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="paymentOption.card" [(ngModel)]="paymentOption.card" id="card" placeholder="{{paymentOption.card}}">
+            <label class="form-check-label" for="card">
+              Check if want to Pay by Card..
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">Walet :</div>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="paymentOption.walet" [(ngModel)]="paymentOption.walet" id="walet" placeholder="{{paymentOption.walet}}">
+            <label class="form-check-label" for="walet">
+              Check if u have paytm/mobikwik?
+            </label>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" (click)="calculateGrandTotal()">Calculate Grand Total</button>
+      <button type="button" class="btn btn-danger btn-sm" (click)="onBillNow()">Generate Bill</button> 
+    </form>
+  </div>
+
 </div>
 
-<div>
-  <button type="button" class="btn btn-primary btn-sm" (click)="saveCart()">Save Cart</button>
-  <button type="button" class="btn btn-danger btn-sm" (click)="onbuyNow()">Buy Now</button>
-</div>
+
 

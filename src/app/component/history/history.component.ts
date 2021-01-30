@@ -8,12 +8,14 @@ import { UsersService } from 'src/app/service/users.service';
 })
 export class HistoryComponent implements OnInit {
 
+  str:string;
   constructor(private userService:UsersService) { }
 
   ngOnInit(): void {
     this.userService.dummyCall()
     .subscribe(data => {
       console.log(data);
+      this.str=data.toString();
       });
   }
 

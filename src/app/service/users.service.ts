@@ -37,7 +37,7 @@ export class UsersService {
   public checkAdmin() {
     let username = localStorage.getItem('username');
     console.log(username);
-    if(Number(username) == 9003049525 || username == 'admin' ) {
+    if(Number(username) == 9003049525) {
       return true;
     }
     else {
@@ -59,17 +59,16 @@ export class UsersService {
   }
     
   public saveRegisterUser(user:RegisterUser){
-    console.log("WTG");  
     return this.httpClient.post<any>(`http://localhost:9001/register`,user );
   }
 
   constructor(private httpClient: HttpClient) { }
 
   public getUser(moblieNumber){
-    return this.httpClient.get<Users>(`http://localhost:8090/user/`+moblieNumber);
+    return this.httpClient.get<Users>(`http://localhost:9003/user/`+moblieNumber);
   }
   public getAllUsers(){
-    return this.httpClient.get(`http://localhost:8090/user`);
+    return this.httpClient.get(`http://localhost:9003/user`);
   }
   public savefromExcelSheet(){
     return this.httpClient.post<any>('http://localhost:8090/user/fromprop', { title: 'Angular POST Request Example' });
