@@ -3,12 +3,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
 import { baseUrl } from 'src/environments/environment';
+import { Invoice } from '../model/Invoice';
+import { Address } from '../model/useraddress';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  public getCustomer(): Invoice {
+    let invoice =new Invoice();
+    invoice.customerName="Abhijit Mishra";
+    invoice.addr=new Address();
+    invoice.contactNumber=8892334981;
+    invoice.products=null;
+    return invoice;
+  }
   public dummyCall() {
     return this.httpClient.get(`${baseUrl}login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
 

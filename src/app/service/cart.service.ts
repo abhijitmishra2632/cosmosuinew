@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserCart } from '../model/usercart';
 import { HttpClient } from '@angular/common/http';
 import { Item } from '../model/item';
-import { Address } from '../model/address';
+import { Address } from '../model/useraddress';
 
 @Injectable({
   providedIn: 'root'

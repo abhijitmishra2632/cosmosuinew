@@ -34,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './service/auth.guard';
 import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
+import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { UploadpicComponent } from './component/product/uploadpic/uploadpic.comp
     StoreComponent,
     HistoryComponent,
     UploadpicComponent,
+    PdfcreatorComponent,
   ],
   imports: [
     BrowserModule,

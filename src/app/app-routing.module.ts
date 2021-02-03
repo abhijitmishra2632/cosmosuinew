@@ -25,6 +25,7 @@ import { ViewCartComponent } from './component/order/view-cart/view-cart.compone
 import { AuthGuard } from './service/auth.guard';
 import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
+import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 
 
 const routes: Routes = [
@@ -63,7 +64,9 @@ const routes: Routes = [
   {path: "vopencart", component: ViewCartComponent, canActivate:[AuthGuard]},
   {path: "addtocart/:id", component: ViewCartComponent},
 
-  {path: "history", component: HistoryComponent, canActivate:[AuthGuard]}
+  {path: "history", component: HistoryComponent, canActivate:[AuthGuard]},
+
+  {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]}
   
 ];
 

@@ -27,6 +27,8 @@
     "bootstrap-icons": "^1.2.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
+    "nice-invoice": "^1.0.6",
+    "pdfmake": "^0.1.70",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -4,7 +4,7 @@ import { UserCart } from '../../../model/usercart';
 import { Item } from 'src/app/model/item';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
-import { Address } from 'src/app/model/address';
+import { Address } from 'src/app/model/useraddress';
 import { Payment } from 'src/app/model/payment';
 
 @Component({
