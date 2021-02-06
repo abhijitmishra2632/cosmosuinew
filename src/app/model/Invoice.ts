@@ -1,11 +1,11 @@
+import { Item } from './item';
 import { Product } from './product';
 import { Address } from './useraddress';
 
 export class Invoice {
-    public customerName:string;
-    public addr: Address;
+    public address: Address;
     public contactNumber: number;
-    public products:Product[]=[];
+    public items:Item[]=[];
     constructor() { 
         
      }

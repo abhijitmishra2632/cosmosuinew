@@ -6,6 +6,7 @@ export const environment = {
   production: false
 };
 export const baseUrl= 'http://localhost:9001/';
+export const invoiceUrl = 'http://localhost:9013/invoice';
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -59,11 +59,10 @@
 </div>
 <div *ngIf="billPage">
   <div>
-    <h3>Total Amount:{{value}}</h3><br>
-    <form (ngSubmit)="onConfirmPayment()">
-      <p>Chose any one option!!</p>
+    <h3>Chose any one option to Pay!!</h3>
+    <form (ngSubmit)="onConfirmPayment()"> 
       <div class="form-group row">
-        <div class="col-sm-2">COD :</div>
+        <div class="col-sm-2">1.COD :</div>
         <div class="col-sm-10">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="paymentOption.cod" [(ngModel)]="paymentOption.cod" id="cod" placeholder="{{paymentOption.cod}}">
@@ -74,7 +73,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <div class="col-sm-2">UPI :</div>
+        <div class="col-sm-2">2.UPI :</div>
         <div class="col-sm-10">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="paymentOption.upi" [(ngModel)]="paymentOption.upi" id="upi" placeholder="{{paymentOption.upi}}">
@@ -85,7 +84,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <div class="col-sm-2">Card :</div>
+        <div class="col-sm-2">3.Card :</div>
         <div class="col-sm-10">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="paymentOption.card" [(ngModel)]="paymentOption.card" id="card" placeholder="{{paymentOption.card}}">
@@ -96,7 +95,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <div class="col-sm-2">Walet :</div>
+        <div class="col-sm-2">4.Walet :</div>
         <div class="col-sm-10">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="paymentOption.walet" [(ngModel)]="paymentOption.walet" id="walet" placeholder="{{paymentOption.walet}}">
@@ -106,8 +105,9 @@
           </div>
         </div>
       </div>
+      <h3>Total Amount:{{value}}</h3><br>
       <button type="button" class="btn btn-primary btn-sm" (click)="calculateGrandTotal()">Calculate Grand Total</button>
-      <button type="button" class="btn btn-danger btn-sm" (click)="onBillNow()">Generate Bill</button> 
+      <button type="button" class="btn btn-danger btn-sm" (click)="onNavigateToInvioceCreation()">Pay</button> 
     </form>
   </div>
 

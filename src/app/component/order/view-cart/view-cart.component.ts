@@ -70,15 +70,20 @@ export class ViewCartComponent implements OnInit {
     this.cartService.getAddress(this.mobileNumber)
     .subscribe(data => {
       console.log(data);
+      sessionStorage.setItem('name',data.name);
+      sessionStorage.setItem('addr',data.address+','+data.landmark);
       this.user=data;
     });
   }
   onBillNow(){
     this.addressPage = false;
-    this.billPage=true;
+    this.billPage=true; 
   }
   onConfirmPayment(){
 
+  }
+  onNavigateToInvioceCreation(){
+    this.router.navigate(['/invoice']);
   }
 
 }

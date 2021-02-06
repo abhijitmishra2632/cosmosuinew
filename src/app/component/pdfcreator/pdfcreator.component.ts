@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';  
 import * as pdfFonts from "pdfmake/build/vfs_fonts"; 
 import { Invoice } from 'src/app/model/Invoice';
+import { Item } from 'src/app/model/item';
+import { CartService } from 'src/app/service/cart.service';
 import { UsersService } from 'src/app/service/users.service';
 
 @Component({
@@ -12,17 +14,34 @@ import { UsersService } from 'src/app/service/users.service';
 })
 export class PdfcreatorComponent implements OnInit {
 
-  constructor(private userService: UsersService) {
+  constructor(private userService: UsersService,private cartService:CartService) {
     (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;  
-    this.generatePDF();
+    this.getItems();
    }
 
   ngOnInit(): void {
-      this.invoice=this.userService.getCustomer();
+    this.userService.getCustomer()
+    .subscribe(data => { 
+      this.invoice.items=data.items;
+      this.invoice.contactNumber=data.contactNumber;
+      this.invoice.address=data.address;
+      });;
+    
   }
-  invoice = new Invoice();     
-
-  generatePDF(action = 'open') {
+  invoice = new Invoice(); 
+  str:String="Cash on Delivery Chosen.Thanks from Draupadi Delivery Services..";    
+  dbitems:Item[]=[];
+  getItems(){
+    let mobileNumber=localStorage.getItem('username');
+    this.cartService.getCartListByMobileNumber(mobileNumber)
+    .subscribe(data => { 
+      this.dbitems=data.items;
+      });
+  }
+  onGenerateBill(){
+    this.generatePDF();
+  }
+  generatePDF(action = 'open') { 
     var today  = new Date();
     var todate=today.toLocaleDateString("en-US");
     let docDefinition = {
@@ -33,11 +52,11 @@ export class PdfcreatorComponent implements OnInit {
           color: '#047886'
         },
         {
-          text: 'L-2-56,Tamrit Colony,Angul',
+          text: 'Tamrit Colony,Angul',
           bold:true
         },
 		    {
-          text: 'Contact: 9003049525',
+          text: 'Contact: 8260827074',
           bold:true
         },
         {
@@ -56,11 +75,11 @@ export class PdfcreatorComponent implements OnInit {
           columns: [
             [
               {
-                text: this.invoice.customerName,
+                text: 'Name :'+this.invoice.address.name,
                 bold:true
               },
-              { text: this.invoice.addr },
-              { text: this.invoice.contactNumber }
+              { text: 'Address :'+ this.invoice.address.address+" ,"+this.invoice.address.landmark },
+              { text: 'Number :'+this.invoice.contactNumber }
             ],
             [
               { 
@@ -77,10 +96,21 @@ export class PdfcreatorComponent implements OnInit {
         {
           text: 'Order Details',
           style: 'sectionHeader'
+        },  
+        {  
+            table: {  
+                headerRows: 1,  
+                widths: ['*', 'auto', 'auto', 'auto'],  
+                body: [  
+                    ['Product Name', 'Price', 'Quantity', 'Amount'],  
+                    ...this.invoice.items.map(p => ([p.product.productName, p.product.productSellingPrice, p.quantityOfProduct, (p.product.productSellingPrice * p.quantityOfProduct).toFixed(2)])),  
+                    [{ text: 'Total Amount', colSpan: 3 }, {}, {}, this.invoice.items.reduce((sum, p) => sum + (p.quantityOfProduct * p.product.productSellingPrice), 0).toFixed(2)]  
+                ]  
+            }  
         },
         {
           columns: [
-            [{ qr: `${this.invoice.customerName}`, fit: '50' }],
+            [{ qr: `${this.invoice.contactNumber}`, fit: '50' }],
             [{ text: 'Signature', alignment: 'right', italics: true}],
           ]
         },
@@ -91,7 +121,7 @@ export class PdfcreatorComponent implements OnInit {
         {
           ul: [
             'This is system generated invoice.',
-            'Warrenty of the product will be subject to the manufacturer terms and conditions.',
+            'Warranty of the product will be subject to the manufacturer terms and conditions.',
           ],
       }
       ],
@@ -103,8 +133,7 @@ export class PdfcreatorComponent implements OnInit {
           margin: [0, 15,0, 15]          
         }
       }
-    };
-         
+    };      
     pdfMake.createPdf(docDefinition).open();
 
 }

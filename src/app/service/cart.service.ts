@@ -55,6 +55,7 @@ export class CartService {
       item.product=dbitems[index].product;
       this.cartList.push(item);
     }
+    sessionStorage.setItem('cartList',this.cartList.toString());
     return this.cartList;
   }
   public onUpdateCart(item: Item) {

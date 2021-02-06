@@ -2,22 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
-import { baseUrl } from 'src/environments/environment';
+import { baseUrl, invoiceUrl } from 'src/environments/environment';
 import { Invoice } from '../model/Invoice';
-import { Address } from '../model/useraddress';
+import { CartService } from './cart.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  public getCustomer(): Invoice {
-    let invoice =new Invoice();
-    invoice.customerName="Abhijit Mishra";
-    invoice.addr=new Address();
-    invoice.contactNumber=8892334981;
-    invoice.products=null;
-    return invoice;
+  public getCustomer() {
+    let mobileNumber = parseInt(localStorage.getItem('username'));
+    let url = `${invoiceUrl}`+'/'+mobileNumber;
+    return this.httpClient.get<Invoice>(url);
   }
   public dummyCall() {
     return this.httpClient.get(`${baseUrl}login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
@@ -72,7 +69,7 @@ export class UsersService {
     return this.httpClient.post<any>(`http://localhost:9001/register`,user );
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private cartService:CartService) { }
 
   public getUser(moblieNumber){
     return this.httpClient.get<Users>(`http://localhost:9003/user/`+moblieNumber);
