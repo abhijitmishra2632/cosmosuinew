@@ -1,1 +1,10 @@
-<p>forgetpage works!</p>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+    <h3>Update Password Form: </h3>
+      <form (ngSubmit)="onUpdateUser()">
+        <input type="text" id="username" class="fadeIn second" name="user.username" placeholder="username" [(ngModel)]="user.username" >
+        <input type="password" id="password" class="fadeIn third" name="user.password" placeholder="Password" [(ngModel)]="user.password" >
+        <input type="submit" class="fadeIn fourth" value="Update Password">
+      </form>
+    </div>
+  </div>

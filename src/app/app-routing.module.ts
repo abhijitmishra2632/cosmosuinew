@@ -26,6 +26,7 @@ import { AuthGuard } from './service/auth.guard';
 import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
+import { ForgetpageComponent } from './component/user/forgetpage/forgetpage.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
   {path: "loginpage", component: LoginpageComponent},
   {path: "logoutpage", component: LogoutpageComponent},
   {path: "registeruser", component: RegisterpageComponent},
+  {path: "forgotpassword", component: ForgetpageComponent},
 
   {path: "productmenu", component: ListProductComponent , canActivate:[AuthGuard]},
   {path: "vdeletedproduct", component: DeletedproductComponent},

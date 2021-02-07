@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterUser } from 'src/app/model/RegisterUser';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-forgetpage',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgetpageComponent implements OnInit {
 
-  constructor() { }
+  user=new RegisterUser();
+  constructor(private usersService:UsersService) { }
 
   ngOnInit(): void {
+  }
+  onUpdateUser(){
+    console.log("Updating Pssword..");
+    let resp =this.usersService.updatePassword(this.user);
+    resp.subscribe(data=>{
+      console.log("Done");
+}); 
   }
 
 }

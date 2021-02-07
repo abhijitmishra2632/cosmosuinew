@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
-import { baseUrl, invoiceUrl } from 'src/environments/environment';
+import { baseUrl, invoiceUrl, registerUrl } from 'src/environments/environment';
 import { Invoice } from '../model/Invoice';
 import { CartService } from './cart.service';
 
@@ -11,6 +11,9 @@ import { CartService } from './cart.service';
   providedIn: 'root'
 })
 export class UsersService {
+  public updatePassword(user: RegisterUser) {
+    return this.httpClient.put(`${registerUrl}`+user.username,user );
+  }
   public getCustomer() {
     let mobileNumber = parseInt(localStorage.getItem('username'));
     let url = `${invoiceUrl}`+'/'+mobileNumber;
