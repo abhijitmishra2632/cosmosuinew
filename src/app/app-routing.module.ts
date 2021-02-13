@@ -66,7 +66,7 @@ const routes: Routes = [
   {path: "vopencart", component: ViewCartComponent, canActivate:[AuthGuard]},
   {path: "addtocart/:id", component: ViewCartComponent},
 
-  {path: "history", component: HistoryComponent, canActivate:[AuthGuard]},
+  {path: "history", component: HistoryComponent},
 
   {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]}
   

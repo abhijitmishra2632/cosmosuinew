@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
-import { baseUrl, invoiceUrl, registerUrl } from 'src/environments/environment';
+import { baseUrl } from 'src/environments/environment';
 import { Invoice } from '../model/Invoice';
 import { CartService } from './cart.service';
 
@@ -12,15 +12,15 @@ import { CartService } from './cart.service';
 })
 export class UsersService {
   public updatePassword(user: RegisterUser) {
-    return this.httpClient.put(`${registerUrl}`+user.username,user );
+    return this.httpClient.put(`${baseUrl}user/register/`+user.username,user );
   }
   public getCustomer() {
     let mobileNumber = parseInt(localStorage.getItem('username'));
-    let url = `${invoiceUrl}`+'/'+mobileNumber;
+    let url = `${baseUrl}`+'/invoice/'+mobileNumber;
     return this.httpClient.get<Invoice>(url);
   }
   public dummyCall() {
-    return this.httpClient.get(`${baseUrl}login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
+    return this.httpClient.get(`${baseUrl}user/login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
 
   }
   public saveToken(data: string) {
@@ -29,11 +29,11 @@ export class UsersService {
   }
   public validateLogin(user: RegisterUser) {
     console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
-    return this.httpClient.get(`${baseUrl}login`, { headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+    return this.httpClient.get(`${baseUrl}user/`, { headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
   }
   public getLoginAccessToken(user: RegisterUser) {
     console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
-    return this.httpClient.post(`${baseUrl}login`, user ,{ headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
+    return this.httpClient.post(`${baseUrl}user/login/`, user ,{ headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
   }
 
   public createJWTHeader(){
@@ -69,7 +69,7 @@ export class UsersService {
   }
     
   public saveRegisterUser(user:RegisterUser){
-    return this.httpClient.post<any>(`http://localhost:9001/register`,user );
+    return this.httpClient.post<any>(`${baseUrl}/user/register`,user );
   }
 
   constructor(private httpClient: HttpClient,private cartService:CartService) { }

@@ -18,6 +18,7 @@ export class ForgetpageComponent implements OnInit {
     console.log("Updating Pssword..");
     let resp =this.usersService.updatePassword(this.user);
     resp.subscribe(data=>{
+      console.log(data);
       console.log("Done");
 }); 
   }

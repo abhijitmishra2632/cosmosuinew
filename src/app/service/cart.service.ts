@@ -9,9 +9,9 @@ import { Address } from '../model/useraddress';
 })
 export class CartService {
   public getAddress(mobileNumber: number) {
-    return this.httpClient.get<Address>(this.addressUrl+"/"+mobileNumber);
+    return this.httpClient.get<Address>(this.addressUrl+mobileNumber);
   }
-  addressUrl:string='http://localhost:9009/address/';
+  addressUrl:string='http://localhost:9191/address/';
   public registerAddress(user: Address) {
     this.httpClient.post<Address>(this.addressUrl,user)
     .subscribe(data => {
@@ -77,7 +77,7 @@ export class CartService {
   cartList:Array<Item> =[];
   cartUpdated= new UserCart();
   
-  uri:string='http://localhost:8099/cart/';
+  uri:string='http://localhost:9191/cart/';
   constructor(private httpClient: HttpClient) { }
   onSaveCart(userCart){
     console.log("Inside save service"+userCart);
