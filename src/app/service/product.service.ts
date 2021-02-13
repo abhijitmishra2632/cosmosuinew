@@ -4,6 +4,7 @@ import { Product } from '../model/product';
 import { Item } from '../model/item';
 import { Products } from '../model/Products';
 import { Photo } from '../model/Photo';
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  productUrl:string='http://localhost:8099/products';
+  productUrl:string=`${baseUrl}products`;
 
   public getProduct(productId){
     return this.httpClient.get<Product>(this.productUrl+`/`+productId);

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/service/users.service';
+import { UsersList } from 'src/app/model/UserList';
+import { Users } from 'src/app/model/User';
 
 @Component({
   selector: 'app-listall',
@@ -10,12 +12,12 @@ export class ListallComponent implements OnInit {
 
   constructor(private userservice:UsersService) { }
     
-  users:any;
+  users:Array<Users> = [];
   
   ngOnInit(): void {
     this.userservice.getAllUsers()
     .subscribe(data => {
-      this.users=data;
+      this.users=data.usersList;
     });
   }
 

@@ -5,6 +5,7 @@ import { Users } from '../model/User';
 import { baseUrl } from 'src/environments/environment';
 import { Invoice } from '../model/Invoice';
 import { CartService } from './cart.service';
+import { UsersList } from '../model/UserList';
 
 
 @Injectable({
@@ -69,16 +70,16 @@ export class UsersService {
   }
     
   public saveRegisterUser(user:RegisterUser){
-    return this.httpClient.post<any>(`${baseUrl}/user/register`,user );
+    return this.httpClient.post<any>(`${baseUrl}user/register`,user );
   }
 
   constructor(private httpClient: HttpClient,private cartService:CartService) { }
 
   public getUser(moblieNumber){
-    return this.httpClient.get<Users>(`http://localhost:9003/user/`+moblieNumber);
+    return this.httpClient.get<Users>(`${baseUrl}contact/`+moblieNumber);
   }
   public getAllUsers(){
-    return this.httpClient.get(`http://localhost:9003/user`);
+    return this.httpClient.get<UsersList>(`${baseUrl}contact`);
   }
   public savefromExcelSheet(){
     return this.httpClient.post<any>('http://localhost:8090/user/fromprop', { title: 'Angular POST Request Example' });
@@ -86,16 +87,16 @@ export class UsersService {
   public saveUser(user:Users){
     //const body=JSON.stringify(user);
     console.log("Inside add userr repo: "+user);
-    return this.httpClient.post<Users>(`http://localhost:8090/user/`,user);
+    return this.httpClient.post<Users>(`${baseUrl}contact`,user);
   }
   public getAllUsersWhatsappOnly(){
-    return this.httpClient.get(`http://localhost:8090/user/vwhatsapponly/`+true);
+    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+true);
   }
   public getAllUsersNoWhatsapp(){
-    return this.httpClient.get(`http://localhost:8090/user/vwhatsapponly/`+false);
+    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+false);
   }
   public getAllUsersOnThisDate(selecteddate){
     console.log(selecteddate);
-    return this.httpClient.get(`http://localhost:8090/user/vbyaddeddate/`+selecteddate);
+    return this.httpClient.get(`${baseUrl}contact/vbyaddeddate/`+selecteddate);
   }
 }

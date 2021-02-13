@@ -3,6 +3,7 @@ import { UserCart } from '../model/usercart';
 import { HttpClient } from '@angular/common/http';
 import { Item } from '../model/item';
 import { Address } from '../model/useraddress';
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CartService {
   public getAddress(mobileNumber: number) {
     return this.httpClient.get<Address>(this.addressUrl+mobileNumber);
   }
-  addressUrl:string='http://localhost:9191/address/';
+  addressUrl:string=`${baseUrl}address/`;
   public registerAddress(user: Address) {
     this.httpClient.post<Address>(this.addressUrl,user)
     .subscribe(data => {
