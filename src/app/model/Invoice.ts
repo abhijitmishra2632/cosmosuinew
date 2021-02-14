@@ -1,9 +1,8 @@
-import { Item } from './item';
-import { Product } from './product';
-import { Address } from './useraddress';
+import { Item } from './Item';
+import { UserAddress } from './UserAddress';
 
 export class Invoice {
-    public address: Address;
+    public address: UserAddress;
     public contactNumber: number;
     public items:Item[]=[];
     constructor() { 

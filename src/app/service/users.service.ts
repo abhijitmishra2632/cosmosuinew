@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { RegisterUser } from '../model/RegisterUser';
 import { Users } from '../model/User';
 import { baseUrl } from 'src/environments/environment';
@@ -12,21 +12,21 @@ import { UsersList } from '../model/UserList';
   providedIn: 'root'
 })
 export class UsersService {
+
+  constructor(private httpClient: HttpClient,private cartService:CartService) { }
+
+  //DB calls
+  //Update Password
   public updatePassword(user: RegisterUser) {
     return this.httpClient.put(`${baseUrl}user/register/`+user.username,user );
   }
-  public getCustomer() {
+  public getInvoiceForCustomer() {
     let mobileNumber = parseInt(localStorage.getItem('username'));
-    let url = `${baseUrl}`+'/invoice/'+mobileNumber;
+    let url = `${baseUrl}invoice/`+mobileNumber;
     return this.httpClient.get<Invoice>(url);
   }
   public dummyCall() {
     return this.httpClient.get(`${baseUrl}user/login/admin`, { headers: { authorization: this.createJWTHeader()  }, responseType: 'text' });
-
-  }
-  public saveToken(data: string) {
-    var json = JSON.parse(data);
-    localStorage.setItem('token',json.jwtToken);
   }
   public validateLogin(user: RegisterUser) {
     console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
@@ -36,12 +36,41 @@ export class UsersService {
     console.log("we are authenticating this user: "+this.createBasicAuthToken(user.username, user.password));
     return this.httpClient.post(`${baseUrl}user/login/`, user ,{ headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
   }
-
+  public saveRegisterUser(user:RegisterUser){
+    return this.httpClient.post<any>(`${baseUrl}user/register`,user );
+  }
+  public getUser(moblieNumber){
+    return this.httpClient.get<Users>(`${baseUrl}contact/`+moblieNumber);
+  }
+  public getAllUsers(){
+    return this.httpClient.get<UsersList>(`${baseUrl}contact`);
+  }
+  public saveUser(user:Users){
+    console.log("Inside add userr repo: "+user);
+    return this.httpClient.post<Users>(`${baseUrl}contact`,user);
+  }
+  public getAllUsersWhatsappOnly(){
+    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+true);
+  }
+  public getAllUsersNoWhatsapp(){
+    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+false);
+  }
+  public getAllUsersOnThisDate(selecteddate){
+    console.log(selecteddate);
+    return this.httpClient.get(`${baseUrl}contact/vbyaddeddate/`+selecteddate);
+  }
+  public savefromExcelSheet(){
+    return this.httpClient.post<any>(`${baseUrl}user/fromprop`, { title: 'Angular POST Request Example' });
+  }
+  //Static calls
+  public saveToken(data: string) {
+    var json = JSON.parse(data);
+    localStorage.setItem('token',json.jwtToken);
+  }
   public createJWTHeader(){
     let token =localStorage.getItem('token');
     return 'Bearer ' + token;
   }
-
   createBasicAuthToken(username: Number, password: String) {
     return 'Basic ' + window.btoa(username + ":" + password)
   }
@@ -68,35 +97,5 @@ export class UsersService {
       return false;
     }
   }
-    
-  public saveRegisterUser(user:RegisterUser){
-    return this.httpClient.post<any>(`${baseUrl}user/register`,user );
-  }
-
-  constructor(private httpClient: HttpClient,private cartService:CartService) { }
-
-  public getUser(moblieNumber){
-    return this.httpClient.get<Users>(`${baseUrl}contact/`+moblieNumber);
-  }
-  public getAllUsers(){
-    return this.httpClient.get<UsersList>(`${baseUrl}contact`);
-  }
-  public savefromExcelSheet(){
-    return this.httpClient.post<any>('http://localhost:8090/user/fromprop', { title: 'Angular POST Request Example' });
-  }
-  public saveUser(user:Users){
-    //const body=JSON.stringify(user);
-    console.log("Inside add userr repo: "+user);
-    return this.httpClient.post<Users>(`${baseUrl}contact`,user);
-  }
-  public getAllUsersWhatsappOnly(){
-    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+true);
-  }
-  public getAllUsersNoWhatsapp(){
-    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+false);
-  }
-  public getAllUsersOnThisDate(selecteddate){
-    console.log(selecteddate);
-    return this.httpClient.get(`${baseUrl}contact/vbyaddeddate/`+selecteddate);
-  }
+  
 }

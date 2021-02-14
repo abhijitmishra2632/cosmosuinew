@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';  
 import * as pdfFonts from "pdfmake/build/vfs_fonts"; 
 import { Invoice } from 'src/app/model/Invoice';
-import { Item } from 'src/app/model/item';
+import { Item } from 'src/app/model/Item';
 import { CartService } from 'src/app/service/cart.service';
 import { UsersService } from 'src/app/service/users.service';
 
@@ -20,7 +20,7 @@ export class PdfcreatorComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.userService.getCustomer()
+    this.userService.getInvoiceForCustomer()
     .subscribe(data => { 
       this.invoice.items=data.items;
       this.invoice.contactNumber=data.contactNumber;

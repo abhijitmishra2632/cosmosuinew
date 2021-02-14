@@ -8,9 +8,9 @@ import { baseUrl } from 'src/environments/environment';
 })
 export class StoreService {
   public getAllStoreProducts() {
-    return this.httpClient.get<Products>(this.uri);
+    return this.httpClient.get<Products>(this.storeUrl);
   }
-  uri:string=`${baseUrl}`+'/store';
+  storeUrl:string=`${baseUrl}`+'/store';
 
   constructor(private httpClient: HttpClient) { }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../service/cart.service';
-import { UserCart } from '../../../model/usercart';
-import { Item } from 'src/app/model/item';
+import { UserCart } from '../../../model/UserCart';
+import { Item } from 'src/app/model/Item';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/model/product';
-import { Address } from 'src/app/model/useraddress';
-import { Payment } from 'src/app/model/payment';
+import { Product } from 'src/app/model/Product';
+import { UserAddress } from 'src/app/model/UserAddress';
+import { Payment } from 'src/app/model/Payment';
 
 @Component({
   selector: 'app-view-cart',
@@ -24,7 +24,7 @@ export class ViewCartComponent implements OnInit {
   billPage:boolean=false;
   total:number=0;
   selected:boolean=false;
-  user= new Address();
+  user= new UserAddress();
   calculateGrandTotal(){
     this.value=0;
     var items = this.items;

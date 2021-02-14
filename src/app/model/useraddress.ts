@@ -1,4 +1,4 @@
-export class Address {
+export class UserAddress {
     public mobileNumber:number;
     public name:string;
     public address: string;

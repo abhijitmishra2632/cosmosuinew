@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/service/product.service';
-import { Product } from 'src/app/model/product';
+import { Product } from 'src/app/model/Product';
 
 @Component({
   selector: 'app-clone-product',

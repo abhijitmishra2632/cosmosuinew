@@ -1,20 +1,57 @@
 import { Injectable } from '@angular/core';
-import { UserCart } from '../model/usercart';
+import { UserCart } from '../model/UserCart';
 import { HttpClient } from '@angular/common/http';
-import { Item } from '../model/item';
-import { Address } from '../model/useraddress';
+import { Item } from '../model/Item';
+import { UserAddress } from '../model/UserAddress';
 import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  addressUrl:string=`${baseUrl}/address/`;
+  cartUrl:string=`${baseUrl}/cart/`;
+  constructor(private httpClient: HttpClient) { }
+
+  cartList:Array<Item> =[];
+  cartUpdated= new UserCart();
+
+
+  //Get Address For Single User
   public getAddress(mobileNumber: number) {
-    return this.httpClient.get<Address>(this.addressUrl+mobileNumber);
+    return this.httpClient.get<UserAddress>(this.addressUrl+mobileNumber);
   }
-  addressUrl:string=`${baseUrl}address/`;
-  public registerAddress(user: Address) {
-    this.httpClient.post<Address>(this.addressUrl,user)
+  //Save Address for Single User
+  public registerAddress(user: UserAddress) {
+    this.httpClient.post<UserAddress>(this.addressUrl,user)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+  //Get Cart Details for Single User
+  getCartListByMobileNumber(mobileNumber){
+    return this.httpClient.get<UserCart>(this.cartUrl+mobileNumber);
+  }
+  //Save Cart Details for Single User
+  onSaveCart(userCart){
+    console.log("Inside save service"+userCart);
+    this.httpClient.post<UserCart>(this.cartUrl,userCart)
+    .subscribe(data => {
+      console.log("Saved successfully");
+      console.log(data.items);
+      });;
+  }
+  
+
+  //Static calls
+  public getCartList(){
+    return this.cartList;
+  }
+  
+  public onUpdateUserCart(userCart: UserCart) {
+    let updateUrl= this.cartUrl+'update/'+userCart.mobileNumber;
+    console.log(updateUrl);
+    this.httpClient.put<UserCart>(updateUrl,userCart)
     .subscribe(data => {
       console.log(data);
     });
@@ -27,17 +64,12 @@ export class CartService {
       localStorage.setItem(itemId.toString(),increaseQuantity.toString());
     }else{
       localStorage.setItem(itemId.toString(),increaseQuantity.toString());
-    }
-    
+    }  
   }
-  public onUpdateUserCart(userCart: UserCart) {
-    let updateUrl= this.uri+'update/'+userCart.mobileNumber;
-    console.log(updateUrl);
-    this.httpClient.put<UserCart>(updateUrl,userCart)
-    .subscribe(data => {
-      console.log(data);
-    });
-
+  public onUpdateCartAdd(itemId) {
+    let quantity=localStorage.getItem(itemId.toString());
+    let increaseQuantity=Number(quantity)+1;
+    localStorage.setItem(itemId.toString(),increaseQuantity.toString());
   }
   public addToLocalStorage(items: Item[]) {
     for (let index = 0; index < items.length; index++) { 
@@ -69,38 +101,12 @@ export class CartService {
     console.log(this.cartList);
     this.cartUpdated.mobileNumber=Number(localStorage.getItem('username'));
     return this.cartUpdated;
-  }
-  public onUpdateCartAdd(itemId) {
-    let quantity=localStorage.getItem(itemId.toString());
-    let increaseQuantity=Number(quantity)+1;
-    localStorage.setItem(itemId.toString(),increaseQuantity.toString());
-  }
-  cartList:Array<Item> =[];
-  cartUpdated= new UserCart();
-  
-  uri:string='http://localhost:9191/cart/';
-  constructor(private httpClient: HttpClient) { }
-  onSaveCart(userCart){
-    console.log("Inside save service"+userCart);
-    this.httpClient.post<UserCart>(this.uri,userCart)
-    .subscribe(data => {
-      console.log("Saved successfully");
-      console.log(data.items);
-      });;
-  }
-  getCartListByMobileNumber(mobileNumber){
-    return this.httpClient.get<UserCart>(this.uri+mobileNumber);
-    
-  }
+  } 
   onAddToCart(product){
     let cart=new Item();
     cart.productId=product.productId;
     cart.quantityOfProduct=1;
     this.cartList.push(cart);
-    console.log("in onAddToCart"+this.cartList);
-  }
-  public getCartList(){
-    return this.cartList;
   }
 
 }
