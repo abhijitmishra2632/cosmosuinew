@@ -37,7 +37,7 @@ export class UsersService {
     return this.httpClient.post(`${baseUrl}user/login/`, user ,{ headers: { authorization: this.createBasicAuthToken(user.username, user.password)  }, responseType: 'text' });
   }
   public saveRegisterUser(user:RegisterUser){
-    return this.httpClient.post<any>(`${baseUrl}user/register`,user );
+    return this.httpClient.post(`${baseUrl}user/register`,user ,{  responseType: 'text' });
   }
   public getUser(moblieNumber){
     return this.httpClient.get<Users>(`${baseUrl}contact/`+moblieNumber);

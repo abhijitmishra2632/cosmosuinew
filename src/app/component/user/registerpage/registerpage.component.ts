@@ -23,8 +23,16 @@ export class RegisterpageComponent implements OnInit {
     };
     this.usersService.saveRegisterUser(this.user)
     .subscribe(myObserver);
-      console.log("Never mind");
+    if(myObserver.next){
       this.routes.navigate(['/loginpage']);
+    }
+    else if(myObserver.error){
+      console.log('Registration Failed. Try again..');
+    }
+    else{
+      console.log('Registration Failed. Try again.. one more time');
+    }
+      
   }
 
 }
