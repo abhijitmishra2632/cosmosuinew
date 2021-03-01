@@ -1,11 +1,11 @@
 <div *ngIf="searchEnable ;else update">
     <!-- Search form -->
     <form class="form-inline waves-light " mdbWavesEffect (ngSubmit)="onSubmit(mobileNumber)">
-        <h3>Update this User  :  </h3>
+        <h4><b>Update this User :</b></h4>
         <div class="md-form mt-0">
             <input class="form-control mr-sm-2" minLength="10" type="text" name="mobileNumber" [(ngModel)]="mobileNumber" placeholder="Enter Mobile No">
         </div>
-        <button type="submit" class="btn btn-success" >Search</button>
+        <button type="submit" class="btn btn-success" >Search To Update</button>
     </form>  
 </div>
 <ng-template #update>

@@ -1,3 +1,19 @@
+<div>  
+    <form (ngSubmit)="onFilterUsers()">
+        <h4><b>Filter Users:</b></h4>
+        <div class="form-row">
+            <div class="form-group"> 
+            <select class="form-control"  name="filterOption" [(ngModel)]="filterOption" id="filterOption">
+                <option *ngFor="let sub of filterList" [value]="sub">{{sub}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success"> Submit </button>
+            </div>
+          </div>
+      </form>  
+</div>
+<h4><b>Showing Users:</b></h4>
 <div>
     <table class="table">
       <thead>

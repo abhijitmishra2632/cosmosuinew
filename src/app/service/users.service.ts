@@ -50,10 +50,10 @@ export class UsersService {
     return this.httpClient.post<Users>(`${baseUrl}contact`,user);
   }
   public getAllUsersWhatsappOnly(){
-    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+true);
+    return this.httpClient.get<UsersList>(`${baseUrl}contact/vwhatsapponly/`+true);
   }
   public getAllUsersNoWhatsapp(){
-    return this.httpClient.get(`${baseUrl}contact/vwhatsapponly/`+false);
+    return this.httpClient.get<UsersList>(`${baseUrl}contact/vwhatsapponly/`+false);
   }
   public getAllUsersOnThisDate(selecteddate){
     console.log(selecteddate);
@@ -76,8 +76,10 @@ export class UsersService {
   }
   public checkAdmin() {
     let username = localStorage.getItem('username');
-    console.log(username);
     if(Number(username) == 9003049525) {
+      return true;
+    }
+    else if(Number(username) == 8260827074){
       return true;
     }
     else {

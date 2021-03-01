@@ -24,10 +24,11 @@ export class LoginpageComponent implements OnInit {
                       .subscribe(data=>{
                         this.usersService.saveToken(data);
                         this.loggedIn=this.usersService.loginUser(this.user);
+                        //window.location.reload();
                         if(this.loggedIn){
-                            this.routes.navigate(['/home']);
-                        } 
-    });     
-
+                          this.routes.navigate(['/home']);
+                      } 
+                        
+    });    
   }
 }
