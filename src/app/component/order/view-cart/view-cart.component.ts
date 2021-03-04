@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/model/Product';
 import { UserAddress } from 'src/app/model/UserAddress';
 import { Payment } from 'src/app/model/Payment';
+import { UserCartGist } from 'src/app/model/UserCartGist';
 
 @Component({
   selector: 'app-view-cart',
@@ -17,8 +18,8 @@ export class ViewCartComponent implements OnInit {
   product= new Product();
   paymentOption = new Payment(false,false,false,false);
   value:number = 0;
-  dbitems : Array<Item>;
   userCart= new UserCart();
+  userCartGist = new UserCartGist();
   addressPage:boolean=false;
   buyNow:Boolean=false;
   billPage:boolean=false;
@@ -39,19 +40,26 @@ export class ViewCartComponent implements OnInit {
     let mobileNumber=localStorage.getItem('username');
     this.cartService.getCartListByMobileNumber(mobileNumber)
     .subscribe(data => {
-      this.dbitems=data.items;
-      this.cartService.addToLocalStorage(data.items);
-      this.items=this.cartService.getItems(this.dbitems);
+      this.userCartGist=data;
+      if(data.itemGistSet!=null){
+        console.log('Data present');
+        this.items = this.cartService.covertToItems(data.itemGistSet);
+        this.cartService.addToLocalStorage(this.items);
+        this.items=this.cartService.getItems(this.items);
+      }else{
+        console.log('no data available to populate'+data.itemGistSet+' and length is: ');
+      }
+      
       });
    }
 
   onIncrease(item:Item){
     this.cartService.onUpdateCartAdd(item.itemId);
-    this.items=this.cartService.getItems(this.dbitems);
+    this.items=this.cartService.getItems(this.items);
   }
   onDecrease(item:Item){
     this.cartService.onUpdateCartDelete(item.itemId);
-    this.items=this.cartService.getItems(this.dbitems);
+    this.items=this.cartService.getItems(this.items);
   }
   onbuyNow(){
     this.buyNow = true;

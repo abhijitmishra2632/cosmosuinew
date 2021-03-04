@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Item } from '../model/Item';
 import { UserAddress } from '../model/UserAddress';
 import { baseUrl } from 'src/environments/environment';
+import { UserCartGist } from '../model/UserCartGist';
+import { ItemGist } from '../model/ItemGist';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,7 @@ export class CartService {
   }
   //Get Cart Details for Single User
   getCartListByMobileNumber(mobileNumber){
-    return this.httpClient.get<UserCart>(this.cartUrl+mobileNumber);
+    return this.httpClient.get<UserCartGist>(this.cartUrl+mobileNumber);
   }
   //Save Cart Details for Single User
   onSaveCart(userCart){
@@ -71,8 +73,23 @@ export class CartService {
     let increaseQuantity=Number(quantity)+1;
     localStorage.setItem(itemId.toString(),increaseQuantity.toString());
   }
+  public covertToItems(itemGistSet:ItemGist[]){
+    let items: Array<Item> =[];
+    for(let index = 0;index<itemGistSet.length; index++){  
+      let item = new Item();
+      item.itemId = itemGistSet[index].item.itemId;
+      item.productId =itemGistSet[index].item.productId;
+      item.quantityOfProduct =itemGistSet[index].item.quantityOfProduct;
+      item.product =itemGistSet[index].product; 
+      console.log('item present in db'+itemGistSet[index].product.productName);
+      items.push(item);
+    }
+    return items;
+  }
   public addToLocalStorage(items: Item[]) {
+    console.log('items fetched '+items);
     for (let index = 0; index < items.length; index++) { 
+      console.log('item fetched '+items[index]);
       let itemId= items[index].itemId.toString();
       localStorage.setItem(itemId,items[index].quantityOfProduct.toString());
     }

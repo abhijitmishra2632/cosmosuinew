@@ -6,6 +6,7 @@ import { Invoice } from 'src/app/model/Invoice';
 import { Item } from 'src/app/model/Item';
 import { CartService } from 'src/app/service/cart.service';
 import { UsersService } from 'src/app/service/users.service';
+import { UserCartGist } from 'src/app/model/UserCartGist';
 
 @Component({
   selector: 'app-pdfcreator',
@@ -18,7 +19,8 @@ export class PdfcreatorComponent implements OnInit {
     (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;  
     this.getItems();
    }
-
+   userCartGist = new UserCartGist();
+   items : Array<Item>;
   ngOnInit(): void {
     this.userService.getInvoiceForCustomer()
     .subscribe(data => { 
@@ -34,8 +36,17 @@ export class PdfcreatorComponent implements OnInit {
   getItems(){
     let mobileNumber=localStorage.getItem('username');
     this.cartService.getCartListByMobileNumber(mobileNumber)
-    .subscribe(data => { 
-      this.dbitems=data.items;
+    .subscribe(data => {
+      this.userCartGist=data;
+      if(data.itemGistSet!=null){
+        console.log('Data present');
+        this.items = this.cartService.covertToItems(data.itemGistSet);
+        this.cartService.addToLocalStorage(this.items);
+        this.items=this.cartService.getItems(this.items);
+      }else{
+        console.log('no data available to populate'+data.itemGistSet+' and length is: ');
+      }
+      
       });
   }
   onGenerateBill(){

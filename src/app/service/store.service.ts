@@ -10,7 +10,7 @@ export class StoreService {
   public getAllStoreProducts() {
     return this.httpClient.get<Products>(this.storeUrl);
   }
-  storeUrl:string=`${baseUrl}`+'/store';
+  storeUrl:string=`${baseUrl}`+'/product/store';
 
   constructor(private httpClient: HttpClient) { }
 }
