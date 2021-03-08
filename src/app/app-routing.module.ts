@@ -27,6 +27,7 @@ import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 import { ForgetpageComponent } from './component/user/forgetpage/forgetpage.component';
+import { AdminRoleComponent } from './component/admin-role/admin-role.component';
 
 
 const routes: Routes = [
@@ -68,7 +69,9 @@ const routes: Routes = [
 
   {path: "history", component: HistoryComponent},
 
-  {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]}
+  {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]},
+
+  {path: "adminjobs", component: AdminRoleComponent , canActivate:[AuthGuard]}
   
 ];
 

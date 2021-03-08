@@ -51,6 +51,7 @@ export class PdfcreatorComponent implements OnInit {
   }
   onGenerateBill(){
     this.generatePDF();
+    console.log("Called successfully");
   }
   generatePDF(action = 'open') { 
     var today  = new Date();

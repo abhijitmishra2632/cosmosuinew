@@ -35,6 +35,7 @@ import { AuthGuard } from './service/auth.guard';
 import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
+import { AdminRoleComponent } from './component/admin-role/admin-role.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component
     HistoryComponent,
     UploadpicComponent,
     PdfcreatorComponent,
+    AdminRoleComponent,
   ],
   imports: [
     BrowserModule,
