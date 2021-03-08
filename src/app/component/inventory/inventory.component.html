@@ -1,0 +1,20 @@
+<div class="example-button-row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">MRP Price</th>
+          <th scope="col">Selling Price</th>
+          <th scope="col">Add to Store</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of products">
+          <td>{{row.productName}}</td>
+          <td>{{row.productMRP}}</td>
+          <td>{{row.productSellingPrice}}</td>
+          <td><button type="click" class="btn btn-primary btn-sm" (click)="onAddToInventory(row)">Add</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

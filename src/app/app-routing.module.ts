@@ -28,6 +28,7 @@ import { UploadpicComponent } from './component/product/uploadpic/uploadpic.comp
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 import { ForgetpageComponent } from './component/user/forgetpage/forgetpage.component';
 import { AdminRoleComponent } from './component/admin-role/admin-role.component';
+import { InventoryComponent } from './component/inventory/inventory.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,10 @@ const routes: Routes = [
 
   {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]},
 
+  {path: "inventory", component: InventoryComponent , canActivate:[AuthGuard]},
+
   {path: "adminjobs", component: AdminRoleComponent , canActivate:[AuthGuard]}
+
   
 ];
 

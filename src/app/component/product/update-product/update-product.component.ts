@@ -13,8 +13,8 @@ export class UpdateProductComponent implements OnInit {
   product = new Product();
   productStatus:boolean=true;
   categoryList=['Packet','Loose'];
-  typeList=['Dali','Masala','Atta','Ditergent','Tooth Paste'];
-  unitList=['Kg','gm',];
+  typeList=['Oil','Dali','Masala','Atta','Ditergent','Tooth Paste',];
+  unitList=['Kg','gm','ltr'];
   storeList=['MyStore','Suman Traders','Bishnu Marwadi','Cosmetic Store','Others'];
   constructor(private route:ActivatedRoute,private productService:ProductService) { }
 

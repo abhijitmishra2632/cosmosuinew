@@ -36,6 +36,7 @@ import { HistoryComponent } from './component/history/history.component';
 import { UploadpicComponent } from './component/product/uploadpic/uploadpic.component';
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 import { AdminRoleComponent } from './component/admin-role/admin-role.component';
+import { InventoryComponent } from './component/inventory/inventory.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { AdminRoleComponent } from './component/admin-role/admin-role.component'
     UploadpicComponent,
     PdfcreatorComponent,
     AdminRoleComponent,
+    InventoryComponent,
   ],
   imports: [
     BrowserModule,
