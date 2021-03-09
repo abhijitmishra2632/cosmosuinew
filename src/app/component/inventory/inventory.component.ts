@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/model/Product';
 import { ProductService } from 'src/app/service/product.service';
 
@@ -11,7 +12,7 @@ export class InventoryComponent implements OnInit {
 
   products:Array<Product> = [];
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService, private router:Router) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts()
@@ -20,8 +21,8 @@ export class InventoryComponent implements OnInit {
       this.products=data.products;
     });
   }
-  onAddToInventory(){
-
+  onAddToInventory(product){
+    this.router.navigate(['/addToInventory',product.productId])
   }
 
 }

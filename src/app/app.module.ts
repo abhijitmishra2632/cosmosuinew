@@ -37,6 +37,7 @@ import { UploadpicComponent } from './component/product/uploadpic/uploadpic.comp
 import { PdfcreatorComponent } from './component/pdfcreator/pdfcreator.component';
 import { AdminRoleComponent } from './component/admin-role/admin-role.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
+import { AddInventoryComponent } from './component/inventory/add-inventory.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { InventoryComponent } from './component/inventory/inventory.component';
     PdfcreatorComponent,
     AdminRoleComponent,
     InventoryComponent,
+    AddInventoryComponent,
   ],
   imports: [
     BrowserModule,

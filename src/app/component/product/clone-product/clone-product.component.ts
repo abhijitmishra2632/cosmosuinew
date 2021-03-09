@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/Product';
 
@@ -16,7 +16,7 @@ export class CloneProductComponent implements OnInit {
   typeList=['Dali','Masala','Atta','Ditergent','Tooth Paste'];
   unitList=['Kg','gm',];
   storeList=['MyStore','Suman Traders','Bishnu Marwadi','Cosmetic Store','Others'];
-  constructor(private route:ActivatedRoute,private productService:ProductService) { }
+  constructor(private route:ActivatedRoute,private productService:ProductService,private routes:Router) { }
 
   ngOnInit(): void {
     this.readProductId();  
@@ -40,8 +40,10 @@ export class CloneProductComponent implements OnInit {
     this.productService.cloneProduct(this.product)
     .subscribe(data => {
       console.log("Cloned successfully");
+      
       });
     this.productStatus=false;
+    this.routes.navigate(['/productmenu']);
   }
 
 }

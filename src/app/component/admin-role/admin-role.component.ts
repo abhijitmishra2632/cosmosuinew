@@ -11,5 +11,14 @@ export class AdminRoleComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  backupData(){
+    console.log('called')
+  }
+  readProductFromCSV(){
+    console.log('called again')
+  }
+  readUsersFromCSV(){
+    console.log('called again')
+  }
 
 }
