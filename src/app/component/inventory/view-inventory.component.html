@@ -1,0 +1,22 @@
+<div class="example-button-row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity Of Product in Store</th>
+          <th scope="col">Purchase Date</th>
+          <th scope="col">Best Before</th>
+          <th scope="col">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let row of inventoryList">
+          <td>{{row.productId}}</td>
+          <td>{{row.quantityOfProduct}}</td>
+          <td>{{row.addedDate}}</td>
+          <td>{{row.bestBeforeDays}}</td>
+          <td>{{row.comments}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
