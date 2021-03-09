@@ -104,7 +104,8 @@ export class PdfcreatorComponent implements OnInit {
               }
             ]
           ]
-        },
+        } 
+        ,
         {
           text: 'Order Details',
           style: 'sectionHeader'

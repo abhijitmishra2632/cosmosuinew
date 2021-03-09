@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inventory } from 'src/app/model/inventory';
+import { InventoryPojo } from 'src/app/model/InventoryPojo';
 import { InventoryService } from 'src/app/service/inventory.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { InventoryService } from 'src/app/service/inventory.service';
 })
 export class ViewInventoryComponent implements OnInit {
 
-  inventoryList:Inventory[];
+  inventoryList:InventoryPojo[];
 
   constructor(private inventoryService:InventoryService) { }
 

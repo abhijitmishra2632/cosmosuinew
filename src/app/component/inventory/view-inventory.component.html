@@ -11,11 +11,11 @@
       </thead>
       <tbody>
         <tr *ngFor = "let row of inventoryList">
-          <td>{{row.productId}}</td>
-          <td>{{row.quantityOfProduct}}</td>
-          <td>{{row.addedDate}}</td>
-          <td>{{row.bestBeforeDays}}</td>
-          <td>{{row.comments}}</td>
+          <td>{{row.product.productName}}</td>
+          <td>{{row.inventory.quantityOfProduct}}</td>
+          <td>{{row.inventory.addedDate}}</td>
+          <td>{{row.inventory.bestBeforeDays}}</td>
+          <td>{{row.inventory.comments}}</td>
         </tr>
       </tbody>
     </table>
