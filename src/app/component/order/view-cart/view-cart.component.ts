@@ -7,6 +7,7 @@ import { Product } from 'src/app/model/Product';
 import { UserAddress } from 'src/app/model/UserAddress';
 import { Payment } from 'src/app/model/Payment';
 import { UserCartGist } from 'src/app/model/UserCartGist';
+import { Order } from 'src/app/model/Order';
 
 @Component({
   selector: 'app-view-cart',
@@ -26,6 +27,7 @@ export class ViewCartComponent implements OnInit {
   total:number=0;
   selected:boolean=false;
   user= new UserAddress();
+  order = new Order();
   calculateGrandTotal(){
     this.value=0;
     var items = this.items;
@@ -46,20 +48,24 @@ export class ViewCartComponent implements OnInit {
         this.items = this.cartService.covertToItems(data.itemGistSet);
         this.cartService.addToLocalStorage(this.items);
         this.items=this.cartService.getItems(this.items);
+        this.calculateGrandTotal();
       }else{
         console.log('no data available to populate'+data.itemGistSet+' and length is: ');
       }
       
       });
+      
    }
 
   onIncrease(item:Item){
     this.cartService.onUpdateCartAdd(item.itemId);
     this.items=this.cartService.getItems(this.items);
+    this.calculateGrandTotal();
   }
   onDecrease(item:Item){
     this.cartService.onUpdateCartDelete(item.itemId);
     this.items=this.cartService.getItems(this.items);
+    this.calculateGrandTotal();
   }
   onbuyNow(){
     this.buyNow = true;
@@ -72,6 +78,7 @@ export class ViewCartComponent implements OnInit {
   onRegisterAddress(){
     this.user.mobileNumber=this.mobileNumber;
     this.cartService.registerAddress(this.user);
+    this.saveCart();
   }
   onConfirmAddress(){
     this.addressPage = true;
@@ -82,6 +89,8 @@ export class ViewCartComponent implements OnInit {
       sessionStorage.setItem('addr',data.address+','+data.landmark);
       this.user=data;
     });
+    this.saveCart();
+    this.calculateGrandTotal();
   }
   onBillNow(){
     this.addressPage = false;
@@ -92,6 +101,19 @@ export class ViewCartComponent implements OnInit {
   }
   onNavigateToInvioceCreation(){
     this.router.navigate(['/invoice']);
+  }
+  onPlacingOrder(){    
+    this.order.mobileNumber=this.mobileNumber;
+    this.order.paymentOption = "cod";
+    this.order.userCart=this.userCart;
+    this.cartService.saveOrder(this.order)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+  goToCartPage(){
+    this.addressPage = false;
+    this.billPage = false;
   }
 
 }

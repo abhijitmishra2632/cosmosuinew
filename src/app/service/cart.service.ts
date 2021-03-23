@@ -6,13 +6,17 @@ import { UserAddress } from '../model/UserAddress';
 import { baseUrl } from 'src/environments/environment';
 import { UserCartGist } from '../model/UserCartGist';
 import { ItemGist } from '../model/ItemGist';
+import { ResponseModel } from '../model/ResponseModel';
+import { Order } from '../model/Order';
+import { Orders } from '../model/Orders';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService { 
   addressUrl:string=`${baseUrl}/address/`;
   cartUrl:string=`${baseUrl}/cart/`;
+  orderUrl:string=`${baseUrl}/order/`;
   constructor(private httpClient: HttpClient) { }
 
   cartList:Array<Item> =[];
@@ -41,9 +45,15 @@ export class CartService {
     .subscribe(data => {
       console.log("Saved successfully");
       console.log(data.items);
-      });;
+      });
   }
   
+  public saveOrder(order: Order) {
+    return this.httpClient.post<ResponseModel>(this.orderUrl,order);
+  }
+  public getOrdersByMobileNumber(mobileNumber: number) {
+    return this.httpClient.get<Orders>(this.orderUrl+mobileNumber);
+  }
 
   //Static calls
   public getCartList(){
@@ -52,6 +62,7 @@ export class CartService {
   
   public onUpdateUserCart(userCart: UserCart) {
     let updateUrl= this.cartUrl+'update/'+userCart.mobileNumber;
+    localStorage.setItem("finalCart",userCart.toString());
     console.log(updateUrl);
     this.httpClient.put<UserCart>(updateUrl,userCart)
     .subscribe(data => {

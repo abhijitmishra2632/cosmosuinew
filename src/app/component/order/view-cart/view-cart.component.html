@@ -38,8 +38,7 @@
 <div>
   <button type="button" class="btn btn-primary btn-sm" (click)="saveCart()">Save Cart</button>
   <button type="button" class="btn btn-danger btn-sm" (click)="onConfirmAddress()">Confirm Address</button>
-  <button type="button" class="btn btn-primary btn-sm" (click)="calculateGrandTotal()">Calculate Grand Total</button>
-</div>
+  </div>
 </div>
 
 <div *ngIf="addressPage">
@@ -108,9 +107,10 @@
         </div>
       </div>
       <h3>Total Amount:{{value}}</h3><br>
-      <button type="button" class="btn btn-primary btn-sm" (click)="calculateGrandTotal()">Calculate Grand Total</button>
-      <button type="button" class="btn btn-danger btn-sm" (click)="onNavigateToInvioceCreation()">Pay</button> 
+      <button type="button" class="btn btn-primary btn-sm" (click)="goToCartPage()">Review Cart</button>
+      <button type="button" class="btn btn-danger btn-sm" (click)="onPlacingOrder()">Order</button> 
     </form>
   </div>
+  {{userCart | json}}
 
 </div>

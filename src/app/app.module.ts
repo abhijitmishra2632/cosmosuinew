@@ -39,7 +39,7 @@ import { AdminRoleComponent } from './component/admin-role/admin-role.component'
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { AddInventoryComponent } from './component/inventory/add-inventory.component';
 import { ViewInventoryComponent } from './component/inventory/view-inventory.component';
-
+import { ShowOrdersComponent } from './component/show-orders/show-orders.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +77,7 @@ import { ViewInventoryComponent } from './component/inventory/view-inventory.com
     InventoryComponent,
     AddInventoryComponent,
     ViewInventoryComponent,
+    ShowOrdersComponent,
   ],
   imports: [
     BrowserModule,
