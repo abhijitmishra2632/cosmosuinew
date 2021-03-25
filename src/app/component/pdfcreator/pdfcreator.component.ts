@@ -7,6 +7,9 @@ import { Item } from 'src/app/model/Item';
 import { CartService } from 'src/app/service/cart.service';
 import { UsersService } from 'src/app/service/users.service';
 import { UserCartGist } from 'src/app/model/UserCartGist';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/model/Order';
+import { UserAddress } from 'src/app/model/UserAddress';
 
 @Component({
   selector: 'app-pdfcreator',
@@ -15,45 +18,37 @@ import { UserCartGist } from 'src/app/model/UserCartGist';
 })
 export class PdfcreatorComponent implements OnInit {
 
-  constructor(private userService: UsersService,private cartService:CartService) {
-    (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;  
-    this.getItems();
+  constructor(private userService: UsersService,private cartService:CartService,private router:Router,private route:ActivatedRoute) {
+    (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs; 
    }
-   userCartGist = new UserCartGist();
-   items : Array<Item>;
+   
   ngOnInit(): void {
-    this.userService.getInvoiceForCustomer()
-    .subscribe(data => { 
-      this.invoice.items=data.items;
-      this.invoice.contactNumber=data.contactNumber;
-      this.invoice.address=data.address;
-      });;
-    
+    this.readOrder(); 
+    this.onGenerateBill(); 
   }
+  orderId:number;
+  order:Order;
+  address:UserAddress;
+  userCartGist = new UserCartGist();
+  items : Array<Item>;
+  str:string;
   invoice = new Invoice(); 
-  str:String="Cash on Delivery Chosen.Thanks from Draupadi Delivery Services..";    
-  dbitems:Item[]=[];
-  getItems(){
-    let mobileNumber=localStorage.getItem('username');
-    this.cartService.getCartListByMobileNumber(mobileNumber)
-    .subscribe(data => {
-      this.userCartGist=data;
-      if(data.itemGistSet!=null){
-        console.log('Data present');
-        this.items = this.cartService.covertToItems(data.itemGistSet);
-        this.cartService.addToLocalStorage(this.items);
-        this.items=this.cartService.getItems(this.items);
-      }else{
-        console.log('no data available to populate'+data.itemGistSet+' and length is: ');
-      }
-      
-      });
-  }
+  readOrder(){
+    let id = parseInt(this.route.snapshot.params.id);
+    this.orderId=id;
+    this.str=sessionStorage.getItem(this.orderId.toString());
+    this.order =JSON.parse(this.str);
+    this.address=JSON.parse(sessionStorage.getItem('addr'));
+    this.invoice.address=this.address;
+    this.invoice.contactNumber= parseInt(localStorage.getItem('username'));
+    this.invoice.items = this.order.userCart.items;
+  }    
   onGenerateBill(){
     this.generatePDF();
     console.log("Called successfully");
+    this.router.navigate(['/myorders']);
   }
-  generatePDF(action = 'open') { 
+  generatePDF(action = 'download') { 
     var today  = new Date();
     var todate=today.toLocaleDateString("en-US");
     let docDefinition = {
@@ -91,7 +86,7 @@ export class PdfcreatorComponent implements OnInit {
                 bold:true
               },
               { text: 'Address :'+ this.invoice.address.address+" ,"+this.invoice.address.landmark },
-              { text: 'Number :'+this.invoice.contactNumber }
+              { text: 'Mobile Number :'+this.invoice.contactNumber }
             ],
             [
               { 
@@ -99,7 +94,7 @@ export class PdfcreatorComponent implements OnInit {
                 alignment: 'right'
               },
               {
-                text: `Date: ${todate}`,
+                text: `Date: `+this.order.orderTime,
                 alignment: 'right'
               }
             ]
@@ -123,7 +118,7 @@ export class PdfcreatorComponent implements OnInit {
         },
         {
           columns: [
-            [{ qr: `${this.invoice.contactNumber}`, fit: '50' }],
+            [{ qr: `${this.orderId}`, fit: '50' }],
             [{ text: 'Signature', alignment: 'right', italics: true}],
           ]
         },

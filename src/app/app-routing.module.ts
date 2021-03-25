@@ -73,7 +73,7 @@ const routes: Routes = [
 
   {path: "history", component: HistoryComponent},
 
-  {path: "invoice", component: PdfcreatorComponent , canActivate:[AuthGuard]},
+  {path: "invoice/:id", component: PdfcreatorComponent , canActivate:[AuthGuard]},
 
   {path: "inventory", component: InventoryComponent , canActivate:[AuthGuard]},
   {path: "viewinventory", component: ViewInventoryComponent , canActivate:[AuthGuard]},
