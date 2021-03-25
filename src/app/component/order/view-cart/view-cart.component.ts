@@ -88,20 +88,36 @@ export class ViewCartComponent implements OnInit {
       sessionStorage.setItem('addr',data.toString());
       this.user=data;
     });
-    this.saveCart();
     this.calculateGrandTotal();
   }
   onBillNow(){
     this.addressPage = false;
     this.billPage=true; 
+    this.saveCart();
   }
   onConfirmPayment(){
 
   }
-  onNavigateToInvioceCreation(){
-    this.router.navigate(['/invoice']);
+
+  refreshCart(){
+    this.saveCart();
+    let mobileNumber=localStorage.getItem('username');
+    this.cartService.getCartListByMobileNumber(mobileNumber)
+    .subscribe(data => {
+      this.userCartGist=data;
+      if(data.itemGistSet!=null){
+        console.log('Data present');
+        this.items = this.cartService.covertToItems(data.itemGistSet);
+        this.cartService.addToLocalStorage(this.items);
+        this.items=this.cartService.getItems(this.items);
+        this.calculateGrandTotal();
+      }else{
+        console.log('no data available to populate'+data.itemGistSet+' and length is: ');
+      }
+      });
   }
-  onPlacingOrder(){    
+  onPlacingOrder(){  
+    this.refreshCart();
     this.order.mobileNumber=this.mobileNumber;
     this.order.paymentOption = "cod";
     this.order.userCart=this.userCart;
@@ -113,6 +129,7 @@ export class ViewCartComponent implements OnInit {
   goToCartPage(){
     this.addressPage = false;
     this.billPage = false;
+    this.router.navigate(['/home']);
   }
 
 }

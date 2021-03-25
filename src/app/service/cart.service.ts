@@ -40,10 +40,8 @@ export class CartService {
   }
   //Save Cart Details for Single User
   onSaveCart(userCart){
-    console.log("Inside save service"+userCart);
     this.httpClient.post<UserCart>(this.cartUrl,userCart)
     .subscribe(data => {
-      console.log("Saved successfully");
       console.log(data.items);
       });
   }
@@ -53,6 +51,9 @@ export class CartService {
   }
   public getOrdersByMobileNumber(mobileNumber: number) {
     return this.httpClient.get<Orders>(this.orderUrl+mobileNumber);
+  }
+  public getAllOrders() {
+    return this.httpClient.get<Orders>(this.orderUrl);
   }
 
   //Static calls

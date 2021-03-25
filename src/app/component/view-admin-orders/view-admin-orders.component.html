@@ -1,0 +1,53 @@
+<div *ngIf="!viewOrderPage">
+    <div class="example-button-row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">OrderId</th>
+            <th scope="col">Order Date</th> 
+            <th scope="col">Total Purchased</th> 
+            <th scope="col">Order Status</th>
+            <th scope="col">View Order</th>       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let row of orderList">
+            <td>{{row.orderId}}</td>
+            <td>{{row.orderTime}}</td>
+            <td></td>
+            <td>{{value}}</td>
+            <td><button type="click" class="btn btn-primary btn-sm" (click)="onView(row)">View</button></td>
+           </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="viewOrderPage">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">MRP of Product</th>
+        <th scope="col">Cost I have paid</th>
+        <th scope="col">Number of Piece's Brought</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let orderPojo of orderPojoList">
+        <td>{{orderPojo.productName}}</td>
+        <td>{{orderPojo.productMRP}}</td>
+        <td>{{orderPojo.productSellingPrice}}</td>
+        <td>{{orderPojo.quantityOfProduct}}</td>
+        <td>{{orderPojo.total}}</td>
+      </tr>
+      <tr>
+        <td><button type="click" class="btn btn-danger btn-sm" (click)="onDownload()">Download Invoice</button></td>
+        <td></td>
+        <td></td>
+        <td><b>Grand Total :</b></td>
+        <td>{{value}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>  

@@ -32,6 +32,7 @@ import { InventoryComponent } from './component/inventory/inventory.component';
 import { AddInventoryComponent } from './component/inventory/add-inventory.component';
 import { ViewInventoryComponent } from './component/inventory/view-inventory.component';
 import { ShowOrdersComponent } from './component/show-orders/show-orders.component';
+import { ViewAdminOrdersComponent } from './component/view-admin-orders/view-admin-orders.component';
 
 
 const routes: Routes = [
@@ -81,7 +82,8 @@ const routes: Routes = [
 
   {path: "adminjobs", component: AdminRoleComponent , canActivate:[AuthGuard]},
 
-  {path: "myorders", component: ShowOrdersComponent, canActivate:[AuthGuard]}
+  {path: "myorders", component: ShowOrdersComponent, canActivate:[AuthGuard]},
+  {path: "adminorders", component: ViewAdminOrdersComponent, canActivate:[AuthGuard]}
   
 ];
 

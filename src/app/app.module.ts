@@ -40,6 +40,7 @@ import { InventoryComponent } from './component/inventory/inventory.component';
 import { AddInventoryComponent } from './component/inventory/add-inventory.component';
 import { ViewInventoryComponent } from './component/inventory/view-inventory.component';
 import { ShowOrdersComponent } from './component/show-orders/show-orders.component';
+import { ViewAdminOrdersComponent } from './component/view-admin-orders/view-admin-orders.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ShowOrdersComponent } from './component/show-orders/show-orders.compone
     AddInventoryComponent,
     ViewInventoryComponent,
     ShowOrdersComponent,
+    ViewAdminOrdersComponent,
   ],
   imports: [
     BrowserModule,
